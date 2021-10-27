@@ -43,8 +43,6 @@ strawb_raw %<>% select(!all_of(drop_cols))
 ########################################################################################################
 #The following chunk of code breaks the data into subsets by domain. 
 #This will make it easier to parse out the Data.Item and Domain.Category into separate columns.
-#Once the data is parsed, we will set it back together. We should have the same number of observations 
-#before and after this step.
 #########################################################################################################
 
 
