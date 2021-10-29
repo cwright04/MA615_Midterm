@@ -1,5 +1,5 @@
-# library(tidyverse)
-# library(magrittr)
+library(tidyverse)
+library(magrittr)
 
 ## load data
 
@@ -41,7 +41,7 @@ for(i in x){T <- c(T, dim(unique(strawb_raw[i]))[1])}
 drop_cols <- cnames[which(T == 1)]
 
 ## drop no info columns
-strawb_raw %<>% select(!all_of(drop_cols))
+strawb_raw %>% select(!all_of(drop_cols))
 
 
 ########################################################################################################
