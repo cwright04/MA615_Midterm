@@ -1,9 +1,9 @@
-library(tidyverse)
-library(magrittr)
+# library(tidyverse)
+# library(magrittr)
 
 ## load data
 
-strawb_raw <- read.csv("Strawberries.csv", fileEncoding = "latin1", header = TRUE)
+strawb_raw <- read.csv("Strawberries_more_years.csv", fileEncoding = "latin1", header = TRUE)
 pest_raw <- read.csv("Pesticides.csv", fileEncoding = "latin1", header = TRUE)
 
 names(strawb_raw)[ncol(strawb_raw)] <- "CV"
@@ -21,6 +21,10 @@ pest1 <- subset(pest_raw, Pesticide != "" )
 pest1$Chemical <- toupper(pest1$Pesticide)
 
 pest_clean <- pest1[,-1]
+
+# names(pest_clean)[2] <- "Hormone"
+# names(pest_clean)[4] <- "Reproductive"
+# names(pest_clean)[5] <- "Bee"
 
 
 ##################################################
