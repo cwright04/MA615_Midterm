@@ -1,0 +1,96 @@
+---
+title: "Strawberries"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+pacman::p_load("magrittr","tidyverse", "ggplot2","dplyr", "reshape2", "plotly")
+```
+
+```{r, echo = FALSE}
+source(file = "Wrangling.R", echo = FALSE)
+```
+
+Overall count of toxins measured in pounds.
+
+```{r}
+CHEMICALS_MEASURED_IN_LB <- subset(CHEM_CLEAN2, Measurements =="MEASURED IN LB") 
+ 
+
+CHEMICALS_MEASURED_IN_LB$Carcinogen_FLAG <- ifelse(CHEMICALS_MEASURED_IN_LB$Carcinogen != "" & 
+                                                     is.na(CHEMICALS_MEASURED_IN_LB$Carcinogen) != "TRUE" , 1, 0)
+
+
+CHEMICALS_MEASURED_IN_LB$Hormone_FLAG <- ifelse(CHEMICALS_MEASURED_IN_LB$Hormone.Disruptor != "" & 
+                                                     is.na(CHEMICALS_MEASURED_IN_LB$Hormone.Disruptor) != "TRUE" , 1, 0)
+CHEMICALS_MEASURED_IN_LB$Neurotoxin_FLAG <- ifelse(CHEMICALS_MEASURED_IN_LB$Neurotoxins != "" & 
+                                                     is.na(CHEMICALS_MEASURED_IN_LB$Neurotoxins) != "TRUE" , 1, 0)
+CHEMICALS_MEASURED_IN_LB$Reprod_FLAG <- ifelse(CHEMICALS_MEASURED_IN_LB$Developmental.or.Reproductive.Toxins != "" & 
+                                                     is.na(CHEMICALS_MEASURED_IN_LB$Developmental.or.Reproductive.Toxins) != "TRUE" , 1, 0)
+CHEMICALS_MEASURED_IN_LB$Bee_FLAG <- ifelse(CHEMICALS_MEASURED_IN_LB$Bee.Toxins != "" & 
+                                                     is.na(CHEMICALS_MEASURED_IN_LB$Bee.Toxins) != "TRUE" , 1, 0)
+
+CHEMICALS_MEASURED_IN_LB_CAR_COUNTS <- CHEMICALS_MEASURED_IN_LB %>%  summarise(Carcinogen = sum(Carcinogen_FLAG),Hormone_Disruptor =  sum(Hormone_FLAG), Neurotoxin = sum(Neurotoxin_FLAG), Reproductive = sum(Reprod_FLAG),Bee =  sum(Bee_FLAG))
+
+
+
+CHEMICALS_MEASURED_IN_LB_CAR_COUNTS_HIST <- pivot_longer(CHEMICALS_MEASURED_IN_LB_CAR_COUNTS, cols =c("Carcinogen","Hormone_Disruptor","Neurotoxin", "Reproductive", "Bee"))
+
+ggplot(CHEMICALS_MEASURED_IN_LB_CAR_COUNTS_HIST, mapping = aes(x = name, y = value, fill = name)) +geom_bar(stat="identity") +
+  ggtitle("Overall Toxin Counts") + xlab("Toxin") + ylab("Pounds") + theme(legend.position="none")
+
+```
+
+Dig into Carcinogens
+
+```{r}
+
+Carcinogens <- subset(CHEMICALS_MEASURED_IN_LB, Carcinogen != "")
+
+
+Chem_Car_Group <- subset(Carcinogens, Carcinogens$Value1 >0  )
+
+Chem_Car_Group1 <- Chem_Car_Group %>% group_by(State,Year, Carcinogen) %>% summarise(Total_Carcinogen = sum(Value1),.groups = "keep" )
+
+#Create a custom color scale
+
+
+plot_CA <- ggplot(subset(Chem_Car_Group1, State == "CALIFORNIA"), mapping = aes(x = Year, y = Total_Carcinogen, color = Carcinogen )) + 
+  geom_point() + ggtitle("CA") + xlim(1990, 2020) + ylim(0, 300000) + scale_color_manual(breaks = c("known","possible","probable"), values = c("red","blue","green"))
+plot_FL <- ggplot(subset(Chem_Car_Group1, State == "FLORIDA"), mapping = aes(x = Year, y = Total_Carcinogen, color = Carcinogen )) + 
+  geom_point() + ggtitle("FL") + xlim(1990, 2020) + ylim(0,300000) + scale_color_manual(breaks = c("known","possible"), values = c("red","blue"))
+plot_NY <- ggplot(subset(Chem_Car_Group1, State == "NEW YORK"), mapping = aes(x = Year, y = Total_Carcinogen, color = Carcinogen )) + 
+  geom_point() + ggtitle("NY") + xlim(1990, 2020) + ylim(0,300000) + scale_color_manual(breaks = c("known","possible"), values = c("red","blue"))
+plot_NC <- ggplot(subset(Chem_Car_Group1, State == "NORTH CAROLINA"), mapping = aes(x = Year, y = Total_Carcinogen, color = Carcinogen )) +
+  geom_point() + ggtitle("NC") + xlim(1990, 2020) + ylim(0,300000) + scale_color_manual(breaks = c("known","possible"), values = c("red","blue"))
+plot_OR <- ggplot(subset(Chem_Car_Group1, State == "OREGON"), mapping = aes(x = Year, y = Total_Carcinogen, color = Carcinogen )) + 
+  geom_point() + ggtitle("OR") + xlim(1990, 2020) + ylim(0,300000) + scale_color_manual(breaks = c("known","possible"), values = c("red","blue"))
+plot_WA <- ggplot(subset(Chem_Car_Group1, State == "WASHINGTON"), mapping = aes(x = Year, y = Total_Carcinogen, color = Carcinogen )) + 
+  geom_point() + ggtitle("WA") + xlim(1990, 2020) + ylim(0,300000) + scale_color_manual(breaks = c("known","possible"), values = c("red","blue"))
+
+require(gridExtra)
+grid.arrange(plot_CA, plot_FL, plot_NY, plot_NC, plot_OR, plot_WA, ncol = 2)
+
+
+```
+ Dig deeper into carcinogen counts in California since it has the most information
+
+```{r}
+
+
+ggplot(subset(Chem_Car_Group1, State == "CALIFORNIA"), mapping = aes(x = Year, y = Total_Carcinogen, color = Carcinogen )) + 
+  geom_line() + ggtitle("Total Carcinogens CA") + xlim(1990, 2020) + ylim(0, 300000) + scale_color_manual(breaks = c("known","possible","probable"), values = c("red","blue","green")) 
+
+plot_known<- ggplot(subset(Carcinogens, State == "CALIFORNIA" & Carcinogen == "known"), mapping = aes(x = Year, y = Value1, color = Chemical )) + geom_point() + ggtitle("CA - Known Carcinogen") + xlim(1990, 2020) + ylim(0, 300000) 
+ggplotly(plot_known)
+
+plot_possible<- ggplot(subset(Carcinogens, State == "CALIFORNIA" & Carcinogen == "possible"), mapping = aes(x = Year, y = Value1, color = Chemical )) + geom_line() + ggtitle("CA - Possible Carcinogen ") + xlim(1990, 2020) + ylim(0, 300000) 
+ggplotly(plot_possible)
+
+plot_probable<- ggplot(subset(Carcinogens, State == "CALIFORNIA" & Carcinogen == "probable"), mapping = aes(x = Year, y = Value1, color = Chemical )) + geom_line() + ggtitle("CA - Proable Carcinogen") + xlim(1990, 2020) + ylim(0, 300000) 
+ggplotly(plot_probable)
+
+
+```
+
