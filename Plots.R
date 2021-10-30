@@ -64,27 +64,45 @@ Chem_Car_Group1 <- Chem_Car_Group %>% group_by(State,Year, Carcinogen) %>% summa
 #Create a custom color scale
 
 Carcinogen_Plots <- function(state){
- ggplot(subset(Chem_Car_Group1, State == `state`), mapping = aes(x = Year, y = Total_Carcinogen, color = Carcinogen )) + 
-  geom_point(shape=25, size=2, stroke = 1) + ggtitle(`state`) + xlim(1990, 2020) + ylim(0, 300000) + scale_color_manual(breaks = c("known","possible","probable"), values = c("firebrick","lightpink2","mistyrose3"))
+ ggplot(subset(Chem_Car_Group1, State == `state`), mapping = aes(x = Year, y = Total_Carcinogen, color = Total_Carcinogen)) + 
+  geom_point(shape=25, size=2, stroke = 2) + ggtitle(`state`) + xlim(1990, 2020) + ylim(0, 300000) + xlab("Pounds") + 
+    scale_colour_viridis( option = "rocket", begin = .8, end = 0) +    
+    theme(panel.border = element_blank(),
+          panel.grid.major = element_blank(),
+          panel.grid.minor = element_blank(),
+          panel.background = element_blank(),
+          axis.line = element_line(colour = "black"),
+          plot.title = element_text(face = "bold", size = (25)), 
+          legend.title = element_text(face = "bold", size =(25)), 
+          legend.text = element_text(size =(25)), 
+          axis.title = element_text( size = (25)),
+          axis.text = element_text(size = (25)),
+          legend.position="none")
 }
-
+# scale_color_manual(breaks = c("known","possible","probable"), values = c("firebrick","lightpink2","mistyrose3")) +
+  
 ###########################################################################################################################
 
 
 CA_Carcinogen <- ggplot(subset(Chem_Car_Group1, State == "CALIFORNIA"), mapping = aes(x = Year, y = Total_Carcinogen, color = Carcinogen )) + 
-  geom_point() + ggtitle("Total Carcinogens CA") +ylab("Pounds")+ xlim(1990, 2020) + ylim(0, 300000) + scale_color_manual(breaks = c("known","possible","probable"), values = c("firebrick","lightpink2","mistyrose3")) 
+  geom_point(shape=25, size=2, stroke = 1) + ggtitle("Total Carcinogens CA") +ylab("Pounds")+ xlim(1990, 2020) + ylim(0, 300000) +
+  scale_color_manual(breaks = c("known","possible","probable"), values = c("firebrick","lightpink2","mistyrose3")) 
 
 
 California_Plots <- function(level){
 ggplot(subset(Carcinogens, State == "CALIFORNIA" & Carcinogen == `level`), mapping = aes(x = Year, y = Value1, color = Chemical )) +
-  geom_point(shape=25, size=2, stroke = .5) + ggtitle(paste0("CA - ",`level`," carcinogen")) + xlim(1990, 2020) + ylim(0, 300000) + ylab("Pounds") +
+  geom_point(shape=25, size=2, stroke = 1) + ggtitle(paste0("CA - ",`level`," carcinogen")) + xlim(1990, 2020) + ylim(0, 300000) + ylab("Pounds") +
   scale_color_brewer(palette = "RdGy") +
   theme(panel.border = element_blank(),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
         panel.background = element_blank(),
-        axis.line = element_line(colour = "black")
-  )
+        axis.line = element_line(colour = "black"),
+        plot.title = element_text(face = "bold", size = (8)), 
+        legend.title = element_text(face = "bold", size =(8)), 
+        legend.text = element_text(size =(8)), 
+        axis.title = element_text( size = (8)),
+        axis.text = element_text(size = (8)))
 }
 
 ###########################################################################################################################
