@@ -123,14 +123,14 @@ CHEM$Chemical <-str_trim(CHEM$Chemical, "right")
 
 #Finalize subset data/ prepare for row binding with other subsets
 CHEM<- CHEM[,c("State","Year", "Item", "Measurements", "Value","Chemical_Type", "Chemical","Chemical_Code", "Unit")] 
-=======
+
   
   CHEM$Chemical_Code <- gsub(" ", "", CHEM$Chemical_Code)
   CHEM$Chemical <-str_trim(CHEM$Chemical, "right")
   
   #Finalize subset data/ prepare for row binding with other subsets
   CHEM<- CHEM[,c("State","Year", "Item", "Measurements", "Value","Chemical_Type", "Chemical","Chemical_Code", "Unit")] 
->>>>>>> c3ad5a11360fdff160f8e675a02a53b8371c60dd
+
 
 #CLEAN UP SUBSET OF DOMAIN =  FERTILIZER
 
