@@ -1,16 +1,13 @@
-
+library(shiny)
 source(file = "Wrangling.R", echo = FALSE)
 CHEMICALS_MEASURED_IN_LB <- subset(CHEM_CLEAN2, Measurements =="MEASURED IN LB") 
 
 Carcinogens <- subset(CHEMICALS_MEASURED_IN_LB, Carcinogen != "")
 
-
 Chem_Car_Group <- subset(Carcinogens, Carcinogens$Value1 >0  )
 
 Chem_Car_Group1 <- Chem_Car_Group %>% group_by(State,Year, Carcinogen) %>% summarise(Total_Carcinogen = sum(Value1),.groups = "keep" )
 
-
-library(shiny)
 
 # Define UI for application that draws a histogram
 ui <- fluidPage(
@@ -50,3 +47,8 @@ server <- function(input, output) {
 
 # Run the application 
 shinyApp(ui = ui, server = server)
+
+
+
+
+

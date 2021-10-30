@@ -1,5 +1,5 @@
-# library(tidyverse)
-# library(magrittr)
+library(tidyverse)
+library(magrittr)
 
 ## load data
 
@@ -41,7 +41,7 @@ for(i in x){T <- c(T, dim(unique(strawb_raw[i]))[1])}
 drop_cols <- cnames[which(T == 1)]
 
 ## drop no info columns
-strawb_raw %<>% select(!all_of(drop_cols))
+strawb_raw %>% select(!all_of(drop_cols))
 
 
 ########################################################################################################
@@ -126,7 +126,7 @@ strawb_raw %<>% select(!all_of(drop_cols))
   CHEM$Chemical <-str_trim(CHEM$Chemical, "right")
   
   #Finalize subset data/ prepare for row binding with other subsets
-  CHEM<- CHEM[,c("State","Year", "Item", "Measurements", "Value","Chemical_Type", "Chemical","Chemical_Code")] %>% mutate(Unit = NA)
+  CHEM<- CHEM[,c("State","Year", "Item", "Measurements", "Value","Chemical_Type", "Chemical","Chemical_Code", "Unit")] 
 
 #CLEAN UP SUBSET OF DOMAIN =  FERTILIZER
 
@@ -164,6 +164,7 @@ CHEM_CLEAN$Value1 <- as.numeric(str_replace_all(CHEM_CLEAN$Value, ",", ""))
 #Remove character Value
 CHEM_CLEAN <- CHEM_CLEAN[,c("State","Year", "Item", "Measurements", "Value1","Chemical_Type", "Chemical","Unit")]
 
+
 #########################################
 #Merge on pesticides
 
@@ -171,7 +172,5 @@ CHEM_CLEAN$Chemical <- toupper(CHEM_CLEAN$Chemical)
 
 
 CHEM_CLEAN2 <- left_join(CHEM_CLEAN, pest_clean, by = "Chemical")
-
-
 
 

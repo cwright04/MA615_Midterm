@@ -1,0 +1,77 @@
+---
+title: "Strawberries"
+author: Carolyn Wright, Rachel Donahue, Ranfei Xu, Zara Waheed
+date: November 1st, 2021
+output: revealjs::revealjs_presentation
+theme: white
+---
+
+# Slide 1
+```{r, include=FALSE} 
+#Code not to be displayed in prez here
+x<-1:3
+y<-1:3
+
+```
+```{r, echo=FALSE, warning=FALSE}
+#code for graphs here
+plot(x,y)
+
+```
+
+# Slide 2
+
+```{r, include=FALSE} 
+#Code not to be displayed here
+x<-1:3
+y<-1:3
+
+```
+```{r, echo=FALSE, warning=FALSE}
+#code for graphs here
+plot(x,y)
+
+```
+
+# Slide 3
+
+```{r, include=FALSE} 
+#Code not to be displayed here
+x<-1:3
+y<-1:3
+
+```
+```{r, echo=FALSE, warning=FALSE}
+#code for graphs here
+plot(x,y)
+
+```
+
+# Slide 4
+
+```{r, include=FALSE} 
+#Code not to be displayed here
+x<-1:3
+y<-1:3
+
+```
+```{r, echo=FALSE, warning=FALSE}
+#code for graphs here
+plot(x,y)
+
+```
+
+
+# Slide 5
+
+```{r, include=FALSE} 
+#Code not to be displayed here
+x<-1:3
+y<-1:3
+
+```
+```{r, echo=FALSE, warning=FALSE}
+#code for graphs here
+plot(x,y)
+
+```
