@@ -37,7 +37,7 @@ for(i in x){T <- c(T, dim(unique(strawb_raw[i]))[1])}
 drop_cols <- cnames[which(T == 1)]
 
 ## drop no info columns
-strawb_raw %<>% select(!all_of(drop_cols))
+strawb_raw %>% select(!all_of(drop_cols))
 
 
 ########################################################################################################
@@ -123,6 +123,14 @@ CHEM$Chemical <-str_trim(CHEM$Chemical, "right")
 
 #Finalize subset data/ prepare for row binding with other subsets
 CHEM<- CHEM[,c("State","Year", "Item", "Measurements", "Value","Chemical_Type", "Chemical","Chemical_Code", "Unit")] 
+=======
+  
+  CHEM$Chemical_Code <- gsub(" ", "", CHEM$Chemical_Code)
+  CHEM$Chemical <-str_trim(CHEM$Chemical, "right")
+  
+  #Finalize subset data/ prepare for row binding with other subsets
+  CHEM<- CHEM[,c("State","Year", "Item", "Measurements", "Value","Chemical_Type", "Chemical","Chemical_Code", "Unit")] 
+>>>>>>> c3ad5a11360fdff160f8e675a02a53b8371c60dd
 
 #CLEAN UP SUBSET OF DOMAIN =  FERTILIZER
 
@@ -166,5 +174,5 @@ CHEM_CLEAN <- CHEM_CLEAN[,c("State","Year", "Item", "Measurements", "Value1","Ch
 
 CHEM_CLEAN$Chemical <- toupper(CHEM_CLEAN$Chemical)
 
-
 CHEM_CLEAN2 <- left_join(CHEM_CLEAN, pest_clean, by = "Chemical")
+
