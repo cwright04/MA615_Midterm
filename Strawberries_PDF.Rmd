@@ -1,5 +1,6 @@
 ---
-title: "Strawberries"
+title: "Suspicious Strawberries"
+author: Carolyn Wright, Rachel Donahue, Ranfei Xu, Zara Waheed
 output: pdf_document
 ---
 
@@ -9,19 +10,41 @@ knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
 pacman::p_load("magrittr","tidyverse", "ggplot2","dplyr", "reshape2", "plotly", "hrbrthemes","viridis", "RColorBrewer")
 ```
 
+
+
+<!-- \section{A very yellow page} -->
+<!-- <<plot1, echo=FALSE>>= -->
+<!-- hist(rnorm(1000)) -->
+<!-- @ -->
+<!-- \clearpage -->
+<!-- \subsection{Another yellow page} -->
+
+
 ```{r, echo = FALSE}
 source(file = "Wrangling.R", echo = FALSE)
 source(file = "Plots.R", echo = FALSE)
 
 ```
 
+<!-- \usepackage{pagecolor} -->
+
+<!-- \pagecolor{bisque} -->
+
 
 ![Strawberries](strawberry.png)
+\newpage
 
 
+# <b>Research Question:</b>
 
+## <b>   How has toxic chemical usage changed over time and does this vary across different states? </b>
 
-## Overall count of toxins measured in pounds.
+\newpage
+
+\section{Investigate overall toxin instances}
+
+\subsection{Bar chart of counts across all years and states}
+
 
 ```{r, fig.width = 10}
 Toxin_bar
@@ -45,29 +68,36 @@ plot_OR <- Carcinogen_Plots("OREGON")
 plot_WA <- Carcinogen_Plots("WASHINGTON")
 
 require(gridExtra)
-grid.arrange(plot_CA, plot_FL, plot_NY, plot_NC, plot_OR, plot_WA, ncol = 2)
+grid.arrange(plot_CA, plot_FL,plot_NY,plot_NC, plot_OR, plot_WA, ncol = 2)
+
+
+```
+
+
+\newpage
+
+```{r, fig.width = 10}
+Carcinogen_usmap
+```
+\newpage
+
+## Dig deeper into carcinogen counts in California since it has the most information
+
+
+```{r, fig.width = 10, fig.height = 5}
+
+CA_Carcinogen
 
 
 
 ```
 \newpage
 
-```{r, fig.width = 10}
-Carcinogen_usmap
-```
-
-
-## Dig deeper into carcinogen counts in California since it has the most information
-
-
-```{r, fig.width = 10}
-
-CA_Carcinogen
-
+```{r}
 California_Plots("known")
 California_Plots("probable")
 California_Plots("possible")
 
-
 ```
+
 
