@@ -6,48 +6,41 @@ output: revealjs::revealjs_presentation
 theme: white
 ---
 
-# Slide 1
+# 
 ```{r, include=FALSE} 
-#Code not to be displayed in prez here
-x<-1:3
-y<-1:3
-
+source(file = "Wrangling.R", echo = FALSE)
+source(file = "Plots.R", echo = FALSE)
+library(plotly)
 ```
+
+
 ```{r, echo=FALSE, warning=FALSE}
-#code for graphs here
-plot(x,y)
+p<-ggplot(CHEMICALS_MEASURED_IN_LB_CAR_COUNTS_HIST, mapping = aes(x = name, y = value, fill = name)) +geom_bar(stat="identity") +
+  ggtitle("Overall Toxin Counts") + xlab("Toxin") + ylab("Pounds") +  scale_fill_brewer(palette = "Reds") +
+  theme(panel.border = element_blank(),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.background = element_blank(),
+        axis.line = element_line(colour = "black"),
+        axis.text.x = element_text(angle = 45, vjust=.6),
+        legend.position="none"
+
+  )
+
+ggplotly(p, tooltip="y")     
 
 ```
 
-# Slide 2
+#
 
-```{r, include=FALSE} 
-#Code not to be displayed here
-x<-1:3
-y<-1:3
-
-```
 ```{r, echo=FALSE, warning=FALSE}
-#code for graphs here
-plot(x,y)
+p2<-ggplot(subset(Chem_Car_Group1, State == "CALIFORNIA"), mapping = aes(x = Year, y = Total_Carcinogen, color = Carcinogen )) + 
+  geom_point() + ggtitle("Total Carcinogens CA") +ylab("Pounds")+ xlim(1990, 2020) + ylim(0, 300000) + scale_color_manual(breaks = c("known","possible","probable"), values = c("firebrick","lightpink2","mistyrose3")) 
 
+ggplotly(p2, tooltip="y")
 ```
 
-# Slide 3
-
-```{r, include=FALSE} 
-#Code not to be displayed here
-x<-1:3
-y<-1:3
-
-```
-```{r, echo=FALSE, warning=FALSE}
-#code for graphs here
-plot(x,y)
-
-```
-
-# Slide 4
+#
 
 ```{r, include=FALSE} 
 #Code not to be displayed here
@@ -62,7 +55,7 @@ plot(x,y)
 ```
 
 
-# Slide 5
+#
 
 ```{r, include=FALSE} 
 #Code not to be displayed here
