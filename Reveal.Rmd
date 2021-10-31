@@ -1,18 +1,29 @@
 ---
 title: "Strawberries"
 author: Carolyn Wright, Rachel Donahue, Ranfei Xu, Zara Waheed
-date: November 1st, 2021
+date: November 3rd, 2021
 output: revealjs::revealjs_presentation
 theme: white
 ---
 
-# 
+# Research Question:
+<div style="font-size:40pt">
+
+
+- How has **toxic chemical** usage changed over **time** 
+- and does this vary across different **states**?
+
+
 ```{r, include=FALSE} 
 source(file = "Wrangling.R", echo = FALSE)
 source(file = "Plots.R", echo = FALSE)
 library(plotly)
 ```
 
+# Investigate overall toxin instances
+<div style="font-size:16pt">
+
+ -  Bar chart of counts across all years and states
 
 ```{r, echo=FALSE, warning=FALSE}
 p<-ggplot(CHEMICALS_MEASURED_IN_LB_CAR_COUNTS_HIST, mapping = aes(x = name, y = value, fill = name)) +geom_bar(stat="identity") +
@@ -31,40 +42,115 @@ ggplotly(p, tooltip="y")
 
 ```
 
-#
+# Distribution of Carcinogens
+
+```{r, include=FALSE} 
+#Code not to be displayed here
+```
+```{r, echo=FALSE, warning=FALSE}
+#code for graphs here
+Carcinogen_usmap
+```
+
+
+# Especially in California
+
+- California had 11 main Carcinogenic chemicals detected in strawberry yields.
+- They fall into the known, possible and probable categories. 
+- The figure below shows a scaled plot of the distribution of Carcinogens detected in strawberries in California over time.
+
+# Total Carcinogens CA
 
 ```{r, echo=FALSE, warning=FALSE}
 p2<-ggplot(subset(Chem_Car_Group1, State == "CALIFORNIA"), mapping = aes(x = Year, y = Total_Carcinogen, color = Carcinogen )) + 
-  geom_point() + ggtitle("Total Carcinogens CA") +ylab("Pounds")+ xlim(1990, 2020) + ylim(0, 300000) + scale_color_manual(breaks = c("known","possible","probable"), values = c("firebrick","lightpink2","mistyrose3")) 
+  geom_point() +ylab("Pounds")+ xlim(1990, 2020) + ylim(0, 300000) + scale_color_manual(breaks = c("known","possible","probable"), values = c("firebrick","lightpink2","mistyrose3")) 
 
 ggplotly(p2, tooltip="y")
 ```
 
-#
 
+
+## the distribution of **known** carcinogens
 ```{r, include=FALSE} 
 #Code not to be displayed here
-x<-1:3
-y<-1:3
 
 ```
 ```{r, echo=FALSE, warning=FALSE}
 #code for graphs here
-plot(x,y)
-
+California_Plots("known")
 ```
 
-
-#
-
+## the distribution of **probable** carcinogens
 ```{r, include=FALSE} 
-#Code not to be displayed here
-x<-1:3
-y<-1:3
+plot_probable <- ggplot(subset(Carcinogens, State == "CALIFORNIA" & Carcinogen == "probable"), mapping = aes(x = Year, y = Value1, color = Chemical )) +
+  geom_point(shape=25, size=2, stroke = 1) + ggtitle(paste0("CA - ","probable"," carcinogen")) + xlim(1990, 2020) + ylab("Pounds") +
+  scale_color_brewer(palette = "RdGy") +
+  theme(panel.border = element_blank(),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.background = element_blank(),
+        axis.line = element_line(colour = "black"),
+        plot.title = element_text(face = "bold", size = (8)), 
+        legend.title = element_text(face = "bold", size =(8)), 
+        legend.text = element_text(size =(8)), 
+        axis.title = element_text( size = (8)),
+        axis.text = element_text(size = (8)))
 
 ```
 ```{r, echo=FALSE, warning=FALSE}
 #code for graphs here
-plot(x,y)
+plot_probable
+```
+
+## the distribution of **possible** carcinogens
+
+```{r, include=FALSE} 
+plot_possible <- ggplot(subset(Carcinogens, State == "CALIFORNIA" & Carcinogen == "possible"), mapping = aes(x = Year, y = Value1, color = Chemical )) +
+  geom_point(shape=25, size=2, stroke = 1) + ggtitle(paste0("CA - ","possible"," carcinogen")) + xlim(1990, 2020) + ylab("Pounds") +
+  scale_color_brewer(palette = "RdGy") +
+  theme(panel.border = element_blank(),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.background = element_blank(),
+        axis.line = element_line(colour = "black"),
+        plot.title = element_text(face = "bold", size = (8)), 
+        legend.title = element_text(face = "bold", size =(8)), 
+        legend.text = element_text(size =(8)), 
+        axis.title = element_text( size = (8)),
+        axis.text = element_text(size = (8)))
 
 ```
+```{r, echo=FALSE, warning=FALSE}
+#code for graphs here
+plot_possible
+```
+
+# Thoughts
+
+
+<div style="font-size:30px">
+
+
+**Trends on the known toxins**
+
+
+<span style="color:green">
+ Captan, Carbaryl and Iprodione  
+</span> 
+ 
+
+**Related policy**
+
+
+<span style="color:green">
+California Office of Envirnomental Health Hazard Assessment (OEHNA) -- Proposition 65  
+</span> 
+
+
+**Further steps**
+
+
+<span style="color:green">
+  Why Captan is still used as widely as it is if it is toxic?
+</span> 
+
