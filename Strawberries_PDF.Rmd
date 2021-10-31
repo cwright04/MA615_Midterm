@@ -23,7 +23,6 @@ pacman::p_load("magrittr","tidyverse", "ggplot2","dplyr", "reshape2", "plotly", 
 ```{r, echo = FALSE}
 source(file = "Wrangling.R", echo = FALSE)
 source(file = "Plots.R", echo = FALSE)
-
 ```
 
 <!-- \usepackage{pagecolor} -->
@@ -45,20 +44,23 @@ source(file = "Plots.R", echo = FALSE)
 
 \subsection{Bar chart of counts across all years and states}
 
+After cleaning out the data and arranging it in an appropriate format, we decided to look at toxins as a whole and compare the amount of the different types of chemicals detected in the strawberry yield.
 
 ```{r, fig.width = 10}
 Toxin_bar
-
 ```
+
+The figure above shows that Bee Toxins are at the highest detected levels. However, we wanted to assess Human toxins for this project so we decided to dig deeper into Carcinogens, as they were the second highest detected toxin.
+
 \newpage
 
 ---
 
 ## Dig into Carcinogens
 
+In our dataset, we had data for six states, namely California, Florida, New york, North Carolina, Orlando and Washington. We decided to compare the levels of carcinogens in different states by their known, possible and probable quantities overtime. The scatterplots below show our findings.
+
 ```{r, fig.width = 20, fig.height = 20}
-
-
 #Create a custom color scale
 plot_CA <- Carcinogen_Plots("CALIFORNIA")
 plot_FL <- Carcinogen_Plots("FLORIDA")
@@ -66,38 +68,43 @@ plot_NY <- Carcinogen_Plots("NEW YORK")
 plot_NC <- Carcinogen_Plots("NORTH CAROLINA")
 plot_OR <- Carcinogen_Plots("OREGON")
 plot_WA <- Carcinogen_Plots("WASHINGTON")
-
 require(gridExtra)
 grid.arrange(plot_CA, plot_FL,plot_NY,plot_NC, plot_OR, plot_WA, ncol = 2)
-
-
 ```
 
+We can see from the figures that we do not have a large number of data points for most of the states and the information may be insufficient for a detailed analysis. The amount of carcinogens present in most states is also very small compared to others. We chose to focus on an area with the highest level of carcinogens so that the study will have the largest impact. 
+Based on this we chose to mainly focus on California and try to dig deeper into the types of Carcinogens detected in strawberries and their trend over time.
 
 \newpage
 
 ```{r, fig.width = 10}
 Carcinogen_usmap
 ```
+
 \newpage
 
 ## Dig deeper into carcinogen counts in California since it has the most information
 
+California had 11 main Carcinogenic chemicals detected in strawberry yields. They fall into the known, possible and probable categories. The figure below shows a scaled plot of the distribution of Carcinogens detected in strawberries in California over time.
 
 ```{r, fig.width = 10, fig.height = 5}
-
 CA_Carcinogen
-
-
-
 ```
+
+We then took a closer look at the different categories and how they are distributed among them. We can see from the figures below that most of the data we have is on known carcinogens and is also found in higher levels as compared to the possible and probable ones.
+
 \newpage
 
 ```{r}
 California_Plots("known")
 California_Plots("probable")
 California_Plots("possible")
-
 ```
 
+When we centered our attention on the known toxins, there seemed to be some patterns in the data. There are three main types of known carcinogens in California; Captan, Carbaryl and Iprodione. According to the figure, Captan seemed to have an increasing trend, apart from two major dips that can be seen on the graph. Carbaryl and Iprodione seemed to have died down completely after about 2002.
 
+We looked further into why theses patterns existed and came across other sources such as the California Department of Pesticide Control (CDPC) showing similar trends in the usage of Captan over time, that verified our results. The California Office of Environmental Health Hazard Assessment (OEHNA) had Proposition 65, officially known as the Safe Drinking Water and Toxic Enforcement Act of 1986. This states Captan as a toxic chemical causing cancer but other sources such as [insert source here] state that research shows that there is no direct link between cancer and the use of Captan. It is, however, harmful if ingested in large amounts over a long period of time and Proposition 65 also states a maximum limit of Captan allowed to crops.
+
+Even though we found no specific information explaining the patterns in Carbaryl and Iprodione, the reason could be that they were found to be toxic and eliminated completely from pesticides for crops. 
+
+Additional research and elaboration is required on the trends of known carcinogens used in Strawberry crops and our next steps would be to dig deeper into why Captan is still used as widely as it is if it is toxic, if the extreme low points can be due to a specific event or policy and whether the trends for other chemicals can be explained by further exploration.
