@@ -118,7 +118,7 @@ plot_possible <- ggplot(subset(Carcinogens, State == "CALIFORNIA" & Carcinogen =
 ```
 ```{r, echo=FALSE, warning=FALSE}
 #code for graphs here
-plot_possible
+ggplotly(plot_possible, tooltip = "y")
 ```
 
 # Thoughts
