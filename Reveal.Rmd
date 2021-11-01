@@ -23,7 +23,6 @@ library(plotly)
 # Investigate overall toxin instances
 <div style="font-size:16pt">
 
- -  Bar chart of counts across all years and states
 
 ```{r, echo=FALSE, warning=FALSE}
 p<-ggplot(CHEMICALS_MEASURED_IN_LB_CAR_COUNTS_HIST, mapping = aes(x = name, y = value, fill = name)) +geom_bar(stat="identity") +
@@ -70,17 +69,14 @@ ggplotly(p2, tooltip="y")
 
 
 
-## the distribution of **known** carcinogens
-```{r, include=FALSE} 
-#Code not to be displayed here
+# Known carcinogenic chemicals 
 
-```
 ```{r, echo=FALSE, warning=FALSE}
 #code for graphs here
-California_Plots("known")
+ggplotly(California_Plots("known"), tooltip="y")
 ```
 
-## the distribution of **probable** carcinogens
+# Probable carcinogenic chemicals 
 ```{r, include=FALSE} 
 plot_probable <- ggplot(subset(Carcinogens, State == "CALIFORNIA" & Carcinogen == "probable"), mapping = aes(x = Year, y = Value1, color = Chemical )) +
   geom_point(shape=25, size=2, stroke = 1) + ggtitle(paste0("CA - ","probable"," carcinogen")) + xlim(1990, 2020) + ylab("Pounds") +
@@ -99,10 +95,10 @@ plot_probable <- ggplot(subset(Carcinogens, State == "CALIFORNIA" & Carcinogen =
 ```
 ```{r, echo=FALSE, warning=FALSE}
 #code for graphs here
-plot_probable
+ggplotly(plot_probable, tooltip="y")
 ```
 
-## the distribution of **possible** carcinogens
+# Possible carcinogenic chemicals
 
 ```{r, include=FALSE} 
 plot_possible <- ggplot(subset(Carcinogens, State == "CALIFORNIA" & Carcinogen == "possible"), mapping = aes(x = Year, y = Value1, color = Chemical )) +
