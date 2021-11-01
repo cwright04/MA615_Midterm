@@ -77,17 +77,35 @@ Carcinogen_Plots <- function(state){
 ###########################################################################################################################
 
 
-CA_Carcinogen <- ggplot(subset(Chem_Car_Group1, State == "CALIFORNIA"), mapping = aes(x = Year, y = Total_Carcinogen, color = Carcinogen )) + geom_point(shape=25, size=2, stroke = 1) + ggtitle("Total Carcinogens CA") +ylab("Pounds")+ xlim(1990, 2020) + ylim(0, 300000) +scale_color_manual(breaks = c("known","possible","probable"), values = c("firebrick","lightpink2","mistyrose3")) 
-
-
-California_Plots <- function(level){
-ggplot(subset(Carcinogens, State == "CALIFORNIA" & Carcinogen == `level`), mapping = aes(x = Year, y = Value1, color = Chemical )) +
-  geom_point(shape=25, size=2, stroke = 1) + ggtitle(paste0("CA - ",`level`," carcinogen")) + xlim(1990, 2020) + ylim(0, 300000) + ylab("Pounds") +
-  scale_color_brewer(palette = "RdGy") +
-  theme(panel.border = element_blank(),
+CA_Carcinogen <- ggplot(subset(Chem_Car_Group1, State == "CALIFORNIA"), mapping = aes(x = Year, y = Total_Carcinogen, color = Carcinogen )) + 
+  geom_point(shape=25, size=2, stroke = 1) + ggtitle("Total Carcinogens CA") +ylab("Pounds")+ xlim(1990, 2020) + ylim(0, 300000) + 
+  scale_color_manual(breaks = c("known","possible","probable"), values = c("firebrick","lightpink2","mistyrose3")) +
+  theme(panel.background = element_rect(fill = "gray100",
+                                        colour = "gray100",
+                                        size = 0.5, linetype = "solid"),
+        panel.border = element_blank(),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
-        panel.background = element_blank(),
+        axis.line = element_line(colour = "black"),
+        plot.title = element_text(face = "bold"), 
+        legend.title = element_text(face = "bold"))
+library(RColorBrewer)
+
+my_color1 <- brewer.pal(n = 11, "RdGy")[1:4]
+my_color2 <- brewer.pal(n = 7, "RdPu")[4:6]
+
+my_color <- c(my_color1,my_color2)
+
+California_Plots_Scaled <- function(level, max){
+ggplot(subset(Carcinogens, State == "CALIFORNIA" & Carcinogen == `level`), mapping = aes(x = Year, y = Value1,  color = Chemical )) +
+  geom_point(shape=25, size=2, stroke = 1) + ggtitle(paste0("CA - ",`level`," carcinogen")) + xlim(1990, 2020) + ylim(0, 300000) + ylab("Pounds") +
+    scale_colour_manual(name = "Chemical",values = my_color) +
+  theme( panel.background = element_rect(fill = "gray100",
+                                         colour = "gray100",
+                                         size = 0.5, linetype = "solid"),
+        panel.border = element_blank(),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
         axis.line = element_line(colour = "black"),
         plot.title = element_text(face = "bold", size = (8)), 
         legend.title = element_text(face = "bold", size =(8)), 
@@ -96,6 +114,26 @@ ggplot(subset(Carcinogens, State == "CALIFORNIA" & Carcinogen == `level`), mappi
         axis.text = element_text(size = (8)))
 }
 
+California_Plots <- function(level, max){
+  ggplot(subset(Carcinogens, State == "CALIFORNIA" & Carcinogen == `level`), mapping = aes(x = Year, y = Value1,  color = Chemical )) +
+    geom_point(shape=25, size=2, stroke = 1) + ggtitle(paste0("CA - ",`level`," carcinogen")) + xlim(1990, 2020)  + ylab("Pounds") +
+    scale_colour_manual(name = "Chemical",values = my_color) +
+    theme( panel.background = element_rect(fill = "gray100",
+                                           colour = "gray100",
+                                           size = 0.5, linetype = "solid"),
+           panel.border = element_blank(),
+           panel.grid.major = element_blank(),
+           panel.grid.minor = element_blank(),
+           axis.line = element_line(colour = "black"),
+           plot.title = element_text(face = "bold", size = (8)), 
+           legend.title = element_text(face = "bold", size =(8)), 
+           legend.text = element_text(size =(8)), 
+           axis.title = element_text( size = (8)),
+           axis.text = element_text(size = (8)))
+}
+# scale_colour_viridis( option = "rocket", begin = .8, end = 0) +
+
+# scale_color_brewer(palette = my_color) 
 ###########################################################################################################################
 
 

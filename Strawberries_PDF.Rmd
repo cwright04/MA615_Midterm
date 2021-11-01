@@ -108,9 +108,9 @@ We then took a closer look at the different categories and how they are distribu
 \newpage
 
 ```{r}
-California_Plots("known")
-California_Plots("probable")
-California_Plots("possible")
+California_Plots_Scaled("known")
+California_Plots_Scaled("probable")
+California_Plots_Scaled("possible")
 ```
 
 When we centered our attention on the known toxins, there seemed to be some patterns in the data. There are three main types of known carcinogens in California; Captan, Carbaryl and Iprodione. According to the figure, Captan seemed to have an increasing trend, apart from two major dips that can be seen on the graph. Carbaryl and Iprodione seemed to have died down completely after about 2002.
