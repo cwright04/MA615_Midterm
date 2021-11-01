@@ -22,9 +22,6 @@ pest1$Chemical <- toupper(pest1$Pesticide)
 
 pest_clean <- pest1[,-1]
 
-# names(pest_clean)[2] <- "Hormone"
-# names(pest_clean)[4] <- "Reproductive"
-# names(pest_clean)[5] <- "Bee"
 
 
 ##################################################
