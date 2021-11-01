@@ -48,6 +48,8 @@ Toxin_bar <- ggplot(CHEMICALS_MEASURED_IN_LB_CAR_COUNTS_HIST, mapping = aes(x = 
 ###########################################################################################################################
 
 #Subset to just carcinogens
+Carcinogens <- subset(CHEMICALS_MEASURED_IN_LB, Carcinogen != "")
+
 Chem_Car_Group <- subset(CHEMICALS_MEASURED_IN_LB, Value1 >0 & Carcinogen != "")
 
 Chem_Car_Group1 <- Chem_Car_Group %>% group_by(State,Year, Carcinogen) %>% summarise(Total_Carcinogen = sum(Value1),.groups = "keep" )
