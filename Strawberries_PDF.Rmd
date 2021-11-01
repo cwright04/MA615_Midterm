@@ -2,6 +2,7 @@
 title: "Suspicious Strawberries"
 author: Carolyn Wright, Rachel Donahue, Ranfei Xu, Zara Waheed
 output: pdf_document
+theme: pink
 ---
 
 
@@ -27,45 +28,51 @@ source(file = "Plots.R", echo = FALSE)
 
 <!-- \usepackage{pagecolor} -->
 
-<!-- \pagecolor{bisque} -->
+<!-- \pagecolor{#fcfbf7} -->
 
 
 ![Strawberries](strawberry.png)
 \newpage
 
+\section{Introduction}
 
-# <b>Research Question:</b>
+This project is based on the analysis of Strawberry yield data that was sourced from the USDA. For the purpose of this presentation, we chose to focus on chemical usage trends over time between 1990 and 2018. We started by analysing multiple states but as we made progress, we ultimately chose to focus on California and the different types of chemicals that were prevalent in the strawberry crops.
 
-## <b>   How has toxic chemical usage changed over time and does this vary across different states? </b>
+\section{Research Question:}
+
+How has toxic chemical usage changed over time and does this vary across different states? </b>
+
+---
 
 \newpage
 
-\section{Overall toxin instances}
-
-\subsection{Bar chart of counts across all years and states}
+\section{Overall Toxin Instances}
 
 After cleaning out the data and arranging it in an appropriate format, we decided to look at toxins as a whole and compare the amount of the different types of chemicals detected in the strawberry yield.
 
-```{r, fig.width = 10}
+```{r, fig.width = 7, fig.height = 5}
 Toxin_bar
 ```
 
-The figure above shows that Bee Toxins are at the highest detected levels. However, we wanted to assess Human toxins for this project so we decided to dig deeper into Carcinogens, as they were the second highest detected toxin.
+The figure above shows the toxin counts across all years and states. This chart shows that Bee Toxins are at the highest detected levels. However, we wanted to assess Human toxins for this project so we decided to dig deeper into Carcinogens, as they were the second highest detected toxin.
 
-\newpage
+---
 
-## Carcinogens per State Map
+\section{Carcinogens per State}
 
-```{r, fig.width = 10}
+\subsection{Map of the US with Level of Carcinogens Used in Strawberry Farming}
+```{r, fig.width = 5,fig.align="center"}
 Carcinogen_usmap
 ```
 This is a view to demonstrate where it seems Carcinogens are most prevalent. As California is a shade of deep red on this map, this indicates that they are the state out of all the 6 states included in this dataset (California, Florida, New York, North Carolina, Oregon and Washington) that has the highest amount of Carcinogens at first glance.
 
 \newpage
 
-## Carcinogens per State Over Time
+\subsection{Carcinogens per State Over Time}
 
 We decided to compare the levels of carcinogens in the different states by their known, possible and probable quantities overtime. The scatterplots below show our findings.
+
+&nbsp;
 
 ```{r, fig.width = 20, fig.height = 20}
 
@@ -82,10 +89,13 @@ grid.arrange(plot_CA, plot_FL,plot_NY,plot_NC, plot_OR, plot_WA, ncol = 2)
 We can see from the figures that we do not have a large number of data points for most of the states and the information may be insufficient for a detailed analysis. The amount of carcinogens present in most states is also very small compared to others. We chose to focus on an area with the highest level of carcinogens so that the study will have the largest impact. 
 Based on this we chose to mainly focus on California and try to dig deeper into the types of Carcinogens detected in strawberries and their trend over time. 
 
+---
 
 \newpage
 
-## California Chemical and Toxicity Levels Counts
+\section{A Deeper Dive into Carcinogens within California}
+
+\subsection{California Chemical and Toxicity Levels Counts}
 
 ```{r, fig.width = 10}
 table
@@ -93,11 +103,12 @@ table
 
 This table shows the counts of chemicals that are considered Carcinogens along with their levels of toxicity for the state of California.
 
-\newpage
 
-## Carcinogenic chemical instances in California trended overtime
+\subsection{Carcinogenic Chemical Instances in California Over Time}
 
 California had 11 main Carcinogenic chemicals detected in strawberry yields. They fall into the known, possible and probable categories. The figure below shows a scaled plot of the distribution of Carcinogens detected in strawberries in California over time.
+
+&nbsp;
 
 ```{r, fig.width = 10, fig.height = 5}
 CA_Carcinogen
@@ -107,11 +118,22 @@ We then took a closer look at the different categories and how they are distribu
 
 \newpage
 
-```{r}
-California_Plots_Scaled("known")
-California_Plots_Scaled("probable")
-California_Plots_Scaled("possible")
+\subsection{Carcinogenic Chemical Instances in California Over Time by Severity}
+
+```{r, fig.width = 15, fig.height = 12}
+require(gridExtra)
+ plotknown <- California_Plots_Scaled("known")
+ plotprobable <- California_Plots_Scaled("probable")
+  plotpossible <- California_Plots_Scaled("possible")
+
+pl <- list(plotknown, plotprobable, plotpossible)
+
+margin = theme(plot.margin = unit(c(.2,.2,.2,.2), "cm"))
+grid.arrange(grobs = lapply(pl, "+", margin))
+# grid.arrange(California_Plots_Scaled("probable"), California_Plots_Scaled("possible"),California_Plots_Scaled("known"))
+
 ```
+
 
 When we centered our attention on the known toxins, there seemed to be some patterns in the data. There are three main types of known carcinogens in California; Captan, Carbaryl and Iprodione. According to the figure, Captan seemed to have an increasing trend, apart from two major dips that can be seen on the graph. Carbaryl and Iprodione seemed to have died down completely after about 2002.
 
