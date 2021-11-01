@@ -40,7 +40,7 @@ source(file = "Plots.R", echo = FALSE)
 
 \newpage
 
-\section{Investigate overall toxin instances}
+\section{Overall toxin instances}
 
 \subsection{Bar chart of counts across all years and states}
 
@@ -54,14 +54,21 @@ The figure above shows that Bee Toxins are at the highest detected levels. Howev
 
 \newpage
 
----
+## Carcinogens per State Map
 
-## Dig into Carcinogens
+```{r, fig.width = 10}
+Carcinogen_usmap
+```
+This is a view to demonstrate where it seems Carcinogens are most prevalent. As California is a shade of deep red on this map, this indicates that they are the state out of all the 6 states included in this dataset (California, Florida, New York, North Carolina, Oregon and Washington) that has the highest amount of Carcinogens at first glance.
 
-In our dataset, we had data for six states, namely California, Florida, New york, North Carolina, Orlando and Washington. We decided to compare the levels of carcinogens in different states by their known, possible and probable quantities overtime. The scatterplots below show our findings.
+\newpage
+
+## Carcinogens per State Over Time
+
+We decided to compare the levels of carcinogens in the different states by their known, possible and probable quantities overtime. The scatterplots below show our findings.
 
 ```{r, fig.width = 20, fig.height = 20}
-#Create a custom color scale
+
 plot_CA <- Carcinogen_Plots("CALIFORNIA")
 plot_FL <- Carcinogen_Plots("FLORIDA")
 plot_NY <- Carcinogen_Plots("NEW YORK")
@@ -73,17 +80,22 @@ grid.arrange(plot_CA, plot_FL,plot_NY,plot_NC, plot_OR, plot_WA, ncol = 2)
 ```
 
 We can see from the figures that we do not have a large number of data points for most of the states and the information may be insufficient for a detailed analysis. The amount of carcinogens present in most states is also very small compared to others. We chose to focus on an area with the highest level of carcinogens so that the study will have the largest impact. 
-Based on this we chose to mainly focus on California and try to dig deeper into the types of Carcinogens detected in strawberries and their trend over time.
+Based on this we chose to mainly focus on California and try to dig deeper into the types of Carcinogens detected in strawberries and their trend over time. 
+
 
 \newpage
+
+## California Chemical and Toxicity Levels Counts
 
 ```{r, fig.width = 10}
-Carcinogen_usmap
+table
 ```
+
+This table shows the counts of chemicals that are considered Carcinogens along with their levels of toxicity for the state of California.
 
 \newpage
 
-## Dig deeper into carcinogen counts in California since it has the most information
+## Carcinogenic chemical instances in California trended overtime
 
 California had 11 main Carcinogenic chemicals detected in strawberry yields. They fall into the known, possible and probable categories. The figure below shows a scaled plot of the distribution of Carcinogens detected in strawberries in California over time.
 

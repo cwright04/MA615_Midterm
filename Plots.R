@@ -1,5 +1,6 @@
 library(usmap)
 library(ggplot2)
+library(knitr)
 
 
 ###########################################################################################################################
@@ -113,5 +114,5 @@ Carcinogen_usmap <- plot_usmap(data = Carcinogens_map, values = "Total_Carcinoge
   theme(legend.position = "right") 
 
 #Creating a summary counts table for all different carcinogen chemicals
-t<-subset(Carcinogens, Carcinogens$State=="California")
+t<-subset(Carcinogens, Carcinogens$State=="CALIFORNIA")
 table<-kable(table(t$Chemical, t$Carcinogen))
