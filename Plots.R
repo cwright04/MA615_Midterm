@@ -161,3 +161,5 @@ table<-kable(table(t$Chemical, t$Carcinogen))
 #Some more subsetting for the shiny app
 t<-(left_join(select(Chem_Car_Group, c(State, Year, Carcinogen, Chemical, Value1)), Chem_Car_Group1, by=c("State", "Year", "Carcinogen" )))
 t$Percent_Of_Total<-round((t$Value1/t$Total_Carcinogen)*100.0,2)
+t2<-(select(t, c(State, Year, Chemical, Value1, Percent_Of_Total, Total_Carcinogen )))
+names(t2)[4]<-"Amount"

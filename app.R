@@ -1,4 +1,5 @@
 library(shiny)
+
 source(file = "Wrangling.R", echo = FALSE)
 source(file = "plots.R", echo=FALSE)
 
@@ -14,10 +15,11 @@ ui <- fluidPage(
         sidebarPanel(
             selectizeInput("stateInput", "State",
                                     choices = unique(Chem_Car_Group1$State))
+            
         ), 
         # Show a plot of the generated trends
         mainPanel(
-           plotOutput("carcinogenplot", brush="plot_brush"), 
+           plotOutput("carcinogenplot", brush="plot_brush"),
            tableOutput("data")
         )
     )
@@ -33,7 +35,7 @@ server <- function(input, output) {
             Chem_Car_Group1 %>%
             filter(State == input$stateInput)    
     })
-    l<-reactive({(t) %>% filter(State==input$stateInput)})
+    l<-reactive({(t2) %>% filter(State==input$stateInput)})
     output$carcinogenplot <- renderPlot({
         
         ggplot(d(), mapping = aes(x = Year, y = Total_Carcinogen, color = Carcinogen )) + 
@@ -42,7 +44,7 @@ server <- function(input, output) {
     })
     
     output$data<-renderTable({
-        brushedPoints(l(), input$plot_brush) })
+        brushedPoints(l()[2:6], input$plot_brush)})  
     
 }
 
