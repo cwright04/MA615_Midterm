@@ -36,11 +36,20 @@ source(file = "Plots.R", echo = FALSE)
 
 \section{Introduction}
 
-This project is based on the analysis of Strawberry yield data that was sourced from the USDA. For the purpose of this presentation, we chose to focus on chemical usage trends over time between 1990 and 2018. We started by analysing multiple states but as we made progress, we ultimately chose to focus on California and the different types of chemicals that were prevalent in the strawberry crops.
+This project is based on the analysis of Strawberry yield data that was sourced from the USDA. For the purpose of this presentation, we chose to focus on chemical usage trends over time between 1990 and 2018. We started by analyzing multiple states but as we made progress, we ultimately chose to focus on California and the different types of chemicals that were prevalent in the strawberry crops. Keeping all this in mind, our analysis mainly focuses on the following question.
 
-\section{Research Question:}
+\subsection{Research Question:}
 
-How has toxic chemical usage changed over time and does this vary across different states? </b>
+### How has toxic chemical usage changed over time and does this vary across different states? </b>
+
+Pesticide use has been widely linked to increases in cancer among humans. Pesticide exposure is not just from it's use in agriculture, but in gardening and school supplies as well. Research has shown positive links between pesticide exposure and solid tumors, most prevalent in brain and prostate cancer. The figure below shows trends of childhood leukemia due to exposure to harmful chemicals in California.
+
+```{r, echo=FALSE, out.width="70%", fig.align="center"}
+knitr::include_graphics("cancer_trends.jpg")
+```
+
+
+The USDA collected most of this data through surveys of farms and ranches that were mostly conducted virtually but in some cases, in-person. About half a million farmers were reached through the surveys conducted in 2017. Some of the data was gathered from geospatial sources and other agencies.
 
 ---
 
@@ -75,7 +84,6 @@ We decided to compare the levels of carcinogens in the different states by their
 &nbsp;
 
 ```{r, fig.width = 20, fig.height = 20}
-
 plot_CA <- Carcinogen_Plots("CALIFORNIA")
 plot_FL <- Carcinogen_Plots("FLORIDA")
 plot_NY <- Carcinogen_Plots("NEW YORK")
@@ -125,13 +133,10 @@ require(gridExtra)
  plotknown <- California_Plots_Scaled("known")
  plotprobable <- California_Plots_Scaled("probable")
   plotpossible <- California_Plots_Scaled("possible")
-
 pl <- list(plotknown, plotprobable, plotpossible)
-
 margin = theme(plot.margin = unit(c(.2,.2,.2,.2), "cm"))
 grid.arrange(grobs = lapply(pl, "+", margin))
 # grid.arrange(California_Plots_Scaled("probable"), California_Plots_Scaled("possible"),California_Plots_Scaled("known"))
-
 ```
 
 
@@ -142,3 +147,23 @@ We looked further into why theses patterns existed and came across other sources
 Even though we found no specific information explaining the patterns in Carbaryl and Iprodione, the reason could be that they were found to be toxic and eliminated completely from pesticides for crops. 
 
 Additional research and elaboration is required on the trends of known carcinogens used in Strawberry crops and our next steps would be to dig deeper into why Captan is still used as widely as it is if it is toxic, if the extreme low points can be due to a specific event or policy and whether the trends for other chemicals can be explained by further exploration.
+
+\newpage
+
+\section{References}
+
+https://www.cdpr.ca.gov/docs/pur/pur18rep/tables/A32.pdf
+
+https://www.cdpr.ca.gov/docs/pur/pur18rep/tables/A31.pdf
+
+https://oehha.ca.gov/proposition-65/proposition-65-list
+
+https://oehha.ca.gov/media/downloads/proposition-65//p65chemicalslistsinglelisttable2021p.pdf
+
+https://www.usda.gov/media/blog/2020/11/18/safe-agricultural-data-collection-and-delivery
+
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2231435/
+
+https://www.beyondpesticides.org/resources/pesticide-induced-diseases-database/cancer
+
+https://winewaterwatch.org/2020/03/glyphosate-and-other-pesticides-linked-with-increased-risk-of-childhood-leukemia-2/
