@@ -8,10 +8,18 @@ theme: white
 
 ---
 
+
 # Research Question:
 <div style="font-size:30pt">
 
-- How has toxic chemical usage changed over time and does this vary across different states?
+<section>    
+    <ul >
+     <img src="strawberry.png"  height="180" width="250">
+    </ul>  
+- How has toxic chemical usage changed over time 
+  
+  and does this vary across different states?
+</section>
 
 
 
