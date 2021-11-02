@@ -17,12 +17,14 @@ ui <- fluidPage(
         ), 
         # Show a plot of the generated trends
         mainPanel(
-           plotOutput("carcinogenplot") 
+           plotOutput("carcinogenplot", brush="plot_brush"), 
+           tableOutput("data")
         )
     )
     
     
 )
+
 
 # Define server logic required to draw a scatterplot
 server <- function(input, output) {
@@ -31,12 +33,16 @@ server <- function(input, output) {
             Chem_Car_Group1 %>%
             filter(State == input$stateInput)    
     })
+    l<-reactive({(t) %>% filter(State==input$stateInput)})
     output$carcinogenplot <- renderPlot({
         
         ggplot(d(), mapping = aes(x = Year, y = Total_Carcinogen, color = Carcinogen )) + 
-            geom_point(shape=25, size=2, stroke = 1)  + xlim(1990, 2020) + ylim(0, 300000) + scale_color_manual(breaks = c("known","possible","probable"), values = c("firebrick","lightpink2","mistyrose3"))
+            geom_point(shape=25, size=2, stroke = 1)  + xlim(1990, 2020) + ylim(0, 300000) + scale_color_manual(breaks = c("known","possible","probable"), values = c("firebrick","lightpink2","mistyrose3"))+ggtitle(input$stateInput)
         
     })
+    
+    output$data<-renderTable({
+        brushedPoints(l(), input$plot_brush) })
     
 }
 
