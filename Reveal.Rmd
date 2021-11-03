@@ -1,24 +1,28 @@
 ---
 title: "Suspicious Strawberries"
+
 author: Carolyn Wright, Rachel Donahue, Ranfei Xu, Zara Waheed
+
 date: November 3rd, 2021
 output: revealjs::revealjs_presentation
 theme: white
-
-
 ---
 
 
-# Research Question:
+# Research Question:{data-background="backgroud.jpg"}
 <div style="font-size:30pt">
 
 <section>    
-    <ul >
-     <img src="strawberry.png"  height="180" width="250">
-    </ul>  
+
 - How has toxic chemical usage changed over time 
   
   and does this vary across different states?
+
+  
+ <ul >
+   <img src="strawberry.png"  height="180" width="250" style="align: center">
+ </ul> 
+    
 </section>
 
 
@@ -30,7 +34,7 @@ source(file = "Plots.R", echo = FALSE)
 library(plotly)
 ```
 
-# Overall toxin instances
+# Overall toxin instances {data-background="backgroud.jpg"}
 <div style="font-size:16pt">
 
 
@@ -39,7 +43,7 @@ ggplotly(Toxin_bar, tooltip="y")
 
 ```
 
-# Distribution of Carcinogens
+# Distribution of Carcinogens {data-background="backgroud.jpg"}
 
 
 ```{r, echo=FALSE, warning=FALSE}
@@ -48,13 +52,13 @@ Carcinogen_usmap
 ```
 
 
-# Especially in California
+# Especially in California {data-background="backgroud.jpg"}
 
 - California had 11 main Carcinogenic chemicals detected in strawberry yields.
 - They fall into the known, possible and probable categories. 
 - The figure below shows a scaled plot of the distribution of Carcinogens detected in strawberries in California over time.
 
-# Total Carcinogens CA
+# Total Carcinogens CA {data-background="backgroud.jpg"}
 
 ```{r, echo=FALSE, warning=FALSE}
 
@@ -64,22 +68,22 @@ ggplotly(CA_Carcinogen, tooltip="y")
 
 
 
-# Known carcinogenic chemicals 
+# Known carcinogenic chemicals  {data-background="backgroud.jpg"}
 
 ```{r, echo=FALSE, warning=FALSE}
 
 ggplotly(California_Plots("known"), tooltip="y")
 ```
 
-# Probable carcinogenic chemicals 
+# Probable carcinogenic chemicals {data-background="backgroud.jpg"}
 
 ```{r, echo=FALSE, warning=FALSE}
 #code for graphs here
 ggplotly(California_Plots("probable"), tooltip = "y")
 ```
 
-# Possible carcinogenic chemicals
-
+# Possible carcinogenic chemicals {data-background="backgroud.jpg"}
+  
 
 ```{r, echo=FALSE, warning=FALSE}
 
@@ -87,7 +91,7 @@ ggplotly(California_Plots("probable"), tooltip = "y")
 ggplotly(California_Plots("possible"), tooltip = "y")
 ```
 
-# Conclusions
+# Conclusions {data-background="backgroud.jpg"}
 
 
 <div style="font-size:30px">
